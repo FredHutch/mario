@@ -1,0 +1,10 @@
+Meta
+doc
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+inst/doc
+.httr-oauth
+tests/testthat/googlesheets_token.rds
+README_cache/

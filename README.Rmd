@@ -1,0 +1,36 @@
+---
+output: github_document
+---
+
+[![Travis build status](https://travis-ci.com/jhudsl/mario.svg?branch=master)](https://travis-ci.com/jhudsl/mario)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jhudsl/mario?branch=master&svg=true)](https://ci.appveyor.com/project/jhudsl/mario)
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-"
+)
+```
+
+# mario Package: 
+The goal of `mario` is to provide leverages the `ari`' package and other tools to create automated courses from slides and a script. 
+
+## Installation
+
+You can install `mario` from GitHub with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("remotes")
+remotes::install_github("jhudsl/mario")
+```
+
+
+## Example
+
+```{r, eval = FALSE}
+library(mario)
+id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
+res = gs_to_ari(id, verbose = FALSE, voice = "Joanna", service = "amazon", open = FALSE) 
+```
