@@ -6,7 +6,10 @@
 #' @export
 #'
 #' @examples
-#' mario_auth()
+#' out = mario_auth()
+#' if (mario_have_api_key()) {
+#' mario_api_key()
+#' }
 mario_auth = function(api_key = Sys.getenv("CONNECT_API_KEY")) {
   auth_hdr = NULL
   if (nzchar(api_key) && !is.null(api_key)) {
@@ -18,10 +21,24 @@ mario_auth = function(api_key = Sys.getenv("CONNECT_API_KEY")) {
 
 #' @rdname mario_auth
 #' @export
+mario_api_url = function() {
+  "https://rsconnect.biostat.jhsph.edu/mario"
+}
+
+#' @rdname mario_auth
+#' @export
 mario_api_key = function(api_key = Sys.getenv("CONNECT_API_KEY")) {
   stopifnot(!is.null(api_key))
-  stopifnot(api_key %in% "")
+  stopifnot(!api_key %in% "")
   return(api_key)
+}
+
+#' @rdname mario_auth
+#' @export
+mario_have_api_key = function(api_key = Sys.getenv("CONNECT_API_KEY")) {
+  api_key = try(mario_api_key(api_key = api_key), silent = TRUE)
+  if (inherits(api_key, "try-error")) return(FALSE)
+  return(!is.null(api_key) && !api_key %in% "")
 }
 
 
@@ -37,6 +54,10 @@ mario_api_key = function(api_key = Sys.getenv("CONNECT_API_KEY")) {
 #' @export
 #'
 #' @examples
+#' if (mario_have_api_key()) {
+#'     result = mario_voices()
+#'     utils::head(result)
+#' }
 mario_voices = function(
   service = NULL,
   api_url = "https://rsconnect.biostat.jhsph.edu/mario",
@@ -68,74 +89,82 @@ mario_voices = function(
 #' @param target The language code (2-character) to translate to.
 #' @param token A Token object for Google Slides for your account.  Usually
 #' created from [googledrive::drive_token]
+#' @param return_images Should images be base64-encoded if slides are converted
+#' to PNG files?
 #' @inheritParams mario_voices
 #'
 #' @return A `response` with the response from the API
 #' @export
 #'
 #' @examples
-#' # Google Slide ID
-#' id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
-#' res = mario(id)
-#' httr::stop_for_status(res)
-#' if (requireNamespace("ariExtra", quietly = TRUE)) {
-#'   # Using PDF
-#'   pdf_file = system.file("extdata", "example.pdf", package = "ariExtra")
-#'   script = tempfile(fileext = ".txt")
-#'   paragraphs = c("hey", "ho")
-#'   writeLines(paragraphs, script)
-#'
-#'   # Trying with script or paragraphs
-#'   res = mario(pdf_file, script)
+#' \dontrun{
+#' if (mario_have_api_key()) {
+#'   # Google Slide ID
+#'   id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
+#'   res = mario(id)
 #'   httr::stop_for_status(res)
-#'   res = mario(pdf_file, paragraphs)
-#'   httr::stop_for_status(res)
+#'   if (requireNamespace("ariExtra", quietly = TRUE)) {
+#'     # Using PDF
+#'     pdf_file = system.file("extdata", "example.pdf", package = "ariExtra")
+#'     script = tempfile(fileext = ".txt")
+#'     paragraphs = c("hey", "ho")
+#'     writeLines(paragraphs, script)
+#'
+#'     # Trying with script or paragraphs
+#'     res = mario(pdf_file, script, return_images = TRUE)
+#'     httr::stop_for_status(res)
+#'     out = mario_content(res)
+#'     res = mario(pdf_file, paragraphs)
+#'     httr::stop_for_status(res)
 #'
 #'
-#'   # Using PPTX
-#'   file = system.file("extdata", "example.pptx", package = "ariExtra")
-#'   res = mario(file)
-#'   # Set of PNGs
-#'   file = system.file("extdata", c("example_1.png", "example_2.png"),
-#'                      package = "ariExtra")
+#'     # Using PPTX
+#'     file = system.file("extdata", "example.pptx", package = "ariExtra")
+#'     res = mario(file)
+#'     # Set of PNGs
+#'     file = system.file("extdata", c("example_1.png", "example_2.png"),
+#'                        package = "ariExtra")
 #'
-#'   res = mario(file, script)
-#'   httr::stop_for_status(res)
-#'   res = mario(file, paragraphs)
-#'   httr::stop_for_status(res)
-#'
-#'
+#'     res = mario(file, script)
+#'     httr::stop_for_status(res)
+#'     res = mario(file, paragraphs)
+#'     httr::stop_for_status(res)
 #'
 #'
-#' id = paste0("https://docs.google.com/presentation/d/",
-#'             "1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8",
-#'             "/edit#slide=id.g154aa4fae2_0_58")
-#' id = ariExtra::get_slide_id(id)
-#' words = strsplit(
-#'   c("hey what do you think of this thing? ",
-#'     "I don't know what to type here."), split = " ")
-#' script = tempfile(fileext = ".txt")
-#' script = writeLines(
-#'   rep(unlist(words),
-#'       length.out = 41), con = script)
 #'
-#'   if (requireNamespace("googledrive", quietly = TRUE)) {
-#'     token = googledrive::drive_token()
-#'     out = mario(file = id,
-#'                 script = script,
-#'                 token = token,
-#'                 target = "es")
+#'
+#'     id = paste0("https://docs.google.com/presentation/d/",
+#'                 "1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8",
+#'                 "/edit#slide=id.g154aa4fae2_0_58")
+#'     id = ariExtra::get_slide_id(id)
+#'     words = strsplit(
+#'       c("hey what do you think of this thing? ",
+#'         "I don't know what to type here."), split = " ")
+#'     script = tempfile(fileext = ".txt")
+#'     script = writeLines(
+#'       rep(unlist(words),
+#'           length.out = 41), con = script)
+#'
+#'     if (requireNamespace("googledrive", quietly = TRUE)) {
+#'       token = googledrive::drive_token()
+#'       out = mario(file = id,
+#'                   script = script,
+#'                   token = token,
+#'                   target = "es")
+#'     }
 #'   }
+#' }
 #' }
 mario = function(
   file,
   script = NULL,
-  api_url = "https://rsconnect.biostat.jhsph.edu/mario",
+  api_url = mario_api_url(),
   api_key = Sys.getenv("CONNECT_API_KEY"),
   voice = NULL,
   service = NULL,
   target = NULL,
   token = NULL,
+  return_images = FALSE,
   ...
 ) {
   auth_hdr = mario_auth(api_key)
@@ -169,6 +198,7 @@ mario = function(
   body$script = script
   body$service = service
   body$voice = voice
+  body$return_images = return_images
   if (!is.null(target) && is.null(token)) {
     stop("If target specified, token needs to be set")
   }
@@ -196,7 +226,7 @@ mario = function(
 #' @export
 mario_translate = function(
   file,
-  api_url = "https://rsconnect.biostat.jhsph.edu/mario",
+  api_url = mario_api_url(),
   api_key = Sys.getenv("CONNECT_API_KEY"),
   target = NULL,
   token = NULL,
@@ -256,6 +286,14 @@ mario_content = function(response) {
   if ("video" %in% names(out)) {
     out$video =  mario_write_video(response)
   }
+  if ("return_images" %in% names(out)) {
+    if (out$return_images) {
+      imgs = mario_process_images(response)
+      out$full_result$images = imgs$images
+      out$full_result$original_images = imgs$original_images
+      rm(imgs)
+    }
+  }
   out$id = out$id[[1]]
   if ("subtitles" %in% names(out)) {
     out$subtitles =  mario_subtitles(response)
@@ -273,6 +311,44 @@ mario_write_video = function(response) {
   output = tempfile(fileext = ".mp4")
   writeBin(bin_data, output)
   output
+}
+
+bin_write = function(object, fileext) {
+  tfile = tempfile(fileext = fileext)
+  writeBin(object, tfile)
+  return(tfile)
+}
+
+#' @rdname mario_content
+#' @export
+mario_process_images = function(response) {
+  httr::stop_for_status(response)
+  bin_data = httr::content(response)
+  bin_data = bin_data$full_result
+  if (!is.null(bin_data)) {
+    if ("original_images" %in% names(bin_data)) {
+      bin_data$original_images = lapply(bin_data$original_images,
+                                        function(r) base64enc::base64decode(r[[1]]))
+      bin_data$original_images = lapply(bin_data$original_images,
+                                        bin_write, fileext = ".png")
+    } else {
+      bin_data$original_images = NULL
+    }
+
+    if ("original_images" %in% names(bin_data)) {
+      bin_data$images = lapply(bin_data$images,
+                               function(r) base64enc::base64decode(r[[1]]))
+      bin_data$images = lapply(bin_data$images,
+                               bin_write, fileext = ".png")
+    } else {
+      bin_data$images = NULL
+    }
+  }
+  L = list()
+  L$original_images = bin_data$original_images
+  L$images = bin_data$images
+  rm(bin_data)
+  return(L)
 }
 
 #' @rdname mario_content

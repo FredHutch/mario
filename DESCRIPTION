@@ -28,4 +28,5 @@ VignetteBuilder: knitr
 Imports: 
     httr,
     jsonlite,
-    base64enc
+    base64enc,
+    utils

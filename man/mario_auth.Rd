@@ -2,12 +2,18 @@
 % Please edit documentation in R/plumber_functions.R
 \name{mario_auth}
 \alias{mario_auth}
+\alias{mario_api_url}
 \alias{mario_api_key}
+\alias{mario_have_api_key}
 \title{Authorization Header for mario}
 \usage{
 mario_auth(api_key = Sys.getenv("CONNECT_API_KEY"))
 
+mario_api_url()
+
 mario_api_key(api_key = Sys.getenv("CONNECT_API_KEY"))
+
+mario_have_api_key(api_key = Sys.getenv("CONNECT_API_KEY"))
 }
 \arguments{
 \item{api_key}{API key for RStudio Cnnect}
@@ -19,5 +25,8 @@ A \code{header} output
 Authorization Header for mario
 }
 \examples{
-mario_auth()
+out = mario_auth()
+if (mario_have_api_key()) {
+mario_api_key()
+}
 }

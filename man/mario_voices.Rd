@@ -26,3 +26,9 @@ A \code{data.frame} of voices
 \description{
 List Voices available
 }
+\examples{
+if (mario_have_api_key()) {
+    result = mario_voices()
+    utils::head(result)
+}
+}

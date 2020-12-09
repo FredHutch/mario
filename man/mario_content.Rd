@@ -3,6 +3,7 @@
 \name{mario_content}
 \alias{mario_content}
 \alias{mario_write_video}
+\alias{mario_process_images}
 \alias{mario_subtitles}
 \alias{open_video}
 \title{Extract content from Mario output}
@@ -10,6 +11,8 @@
 mario_content(response)
 
 mario_write_video(response)
+
+mario_process_images(response)
 
 mario_subtitles(response)
 

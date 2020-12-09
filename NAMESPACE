@@ -2,8 +2,11 @@
 
 export(mario)
 export(mario_api_key)
+export(mario_api_url)
 export(mario_auth)
 export(mario_content)
+export(mario_have_api_key)
+export(mario_process_images)
 export(mario_subtitles)
 export(mario_translate)
 export(mario_voices)
