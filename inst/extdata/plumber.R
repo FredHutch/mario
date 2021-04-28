@@ -207,26 +207,11 @@ guess_ari_func = function(contents, verbose = TRUE) {
 
 }
 
-#* @apiTitle Presentation Video Generation API
+is_pptx = function(path) {
+  tolower(tools::file_ext(path)) == "pptx"
+}
 
-#* Process Input into a Video
-#* @param target target language to translate to. If this is passed, then translation is done.
-#* @param service service to use for voice synthesis, including "amazon", "google", or "microsoft".  Currently only "google" supported
-#* @param voice The voice to use for synthesis, needs to be paired with service
-#* @param script file upload of script
-#* @param file ID of Google Slide deck, or file upload of PDF slides, PPTX file, or list of PNGs
-#* @post /to_ari
-function(req) {
-
-  # stop("Not ready")
-  contents = name_contents(req)
-  print("contents")
-  print(contents)
-  func_to_run = guess_ari_func(contents, verbose = TRUE)
-  type_out = attr(func_to_run, "type")
-  attr(func_to_run, "type") = NULL
-  print("func_to_run")
-  # print(func_to_run)
+run_ari = function(func_to_run, contents, ...) {
   file = contents$file
   print("file")
   print(file)
@@ -249,7 +234,7 @@ function(req) {
   }
   if (type_out %in% "pptx") {
     # need this for docxtractr
-    if (!docxtractr:::is_pptx(file)) {
+    if (!is_pptx(file)) {
       tmpfile = file
       file = paste0(tmpfile, ".pptx")
       file.copy(tmpfile, file)
@@ -290,6 +275,77 @@ function(req) {
   L
 }
 
+#* @apiTitle Presentation Video Generation API
+
+#* Process Input into a Video
+#* @param target target language to translate to. If this is passed, then translation is done.
+#* @param service service to use for voice synthesis, including "amazon", "google", or "microsoft".  Currently only "google" supported
+#* @param voice The voice to use for synthesis, needs to be paired with service
+#* @param script file upload of script
+#* @param file ID of Google Slide deck, or file upload of PDF slides, PPTX file, or list of PNGs
+#* @post /to_ari
+function(req) {
+
+  # stop("Not ready")
+  contents = name_contents(req)
+  print("contents")
+  print(contents)
+  func_to_run = guess_ari_func(contents, verbose = TRUE)
+  type_out = attr(func_to_run, "type")
+  attr(func_to_run, "type") = NULL
+  print("func_to_run")
+  # print(func_to_run)
+  run_ari(func_to_run = func_to_run, contents = contents)
+}
+
+
+#* Google Slides to ari
+#* @param target target language to translate to. If this is passed, then translation is done.
+#* @param service service to use for voice synthesis, including "amazon", "google", or "microsoft".  Currently only "google" supported
+#* @param voice The voice to use for synthesis, needs to be paired with service
+#* @param file ID of Google Slide deck
+#* @post /gs_ari
+function(req) {
+
+  # stop("Not ready")
+  contents = name_contents(req)
+
+  func_to_run = guess_ari_func(contents, verbose = TRUE)
+  type = attr(func_to_run, "type")
+  if (type != "gs") {
+    stop("Guessed function is not google slides - type is: ", type)
+  }
+  if (!is.null(contents$script)) {
+    warning("script passed to Google Slide function")
+  }
+
+  # print(func_to_run)
+  run_ari(func_to_run = func_to_run, contents = contents)
+}
+
+#* PowerPoint to ari
+#* @param target target language to translate to. If this is passed, then translation is done.
+#* @param service service to use for voice synthesis, including "amazon", "google", or "microsoft".  Currently only "google" supported
+#* @param voice The voice to use for synthesis, needs to be paired with service
+#* @param file file upload of PowerPoint file
+#* @post /pptx_ari
+function(req) {
+
+  # stop("Not ready")
+  contents = name_contents(req)
+
+  func_to_run = guess_ari_func(contents, verbose = TRUE)
+  type = attr(func_to_run, "type")
+  if (type != "pptx") {
+    stop("Guessed function is not pptx - type is: ", type)
+  }
+
+  run_ari(func_to_run = func_to_run, contents = contents)
+}
+
+
+
+
 
 #* List Voices
 #* @param service service to use for voice synthesis, including "amazon", "google", or "microsoft".  Currently only "google" supported
@@ -312,6 +368,7 @@ ari_processor = function(res, voice, service, subtitles) {
   format = do.call(ariExtra::ari_document, args = doc_args)
 
   out = rmarkdown::render(res$output_file, output_format = format)
+  # needs to be done - byproduct of render
   output = output_movie_file
   sub_file = paste0(tools::file_path_sans_ext(output), ".srt")
   if (!file.exists(output)) {
@@ -399,6 +456,30 @@ run_translation = function(contents) {
 }
 
 
+general_list = list(
+  description ="Process a Number of Different Inputs into a Video",
+  params = list(
+    target = 'target language to translate to. If this is passed, then translation is done.',
+    service = paste0(
+      'service to use for voice synthesis, including ',
+      '"amazon", "google", or "microsoft".  Currently only ',
+      '"google" supported'),
+    voice = 'The voice to use for synthesis, needs to be paired with service',
+    script = 'file upload of script, in body passed to httr::upload_file',
+    file = 'ID of Google Slide deck, or file upload of PDF slides, PPTX file, or list of PNGs',
+    token = "Google Drive token file, passed to httr::upload_file",
+    file = "Google Slide ID or httr::upload_file of PPTX"
+  )
+)
+pptx_list = general_list
+pptx_list$params$file = 'File upload of PPTX file'
+pptx_list$params$token = NULL
+
+gs_list = general_list
+gs_list$params$script = NULL
+gs_list$params$token = NULL
+gs_list$params$file = 'ID of Google Slide deck'
+
 #* Base Handler that Gives a list of endpoints
 #* @get /endpoints
 function() {
@@ -413,22 +494,9 @@ function() {
           target = 'target language to translate to.'
         )
       ),
-    "to_ari" =
-      list(
-        description ="Process a Number of Different Inputs into a Video",
-        params = list(
-          target = 'target language to translate to. If this is passed, then translation is done.',
-          service = paste0(
-            'service to use for voice synthesis, including ',
-            '"amazon", "google", or "microsoft".  Currently only ',
-            '"google" supported'),
-          voice = 'The voice to use for synthesis, needs to be paired with service',
-          script = 'file upload of script, in body passed to httr::upload_file',
-          file = 'ID of Google Slide deck, or file upload of PDF slides, PPTX file, or list of PNGs',
-          token = "Google Drive token file, passed to httr::upload_file",
-          file = "Google Slide ID or httr::upload_file of PPTX"
-        )
-      ),
+    "to_ari" = general_list,
+    "pptx_ari" = pptx_list,
+    "gs_ari" = gs_list,
     "list_voices" = list(
       description =
         "List the Available Voices for a Text-to-Speech Service",
