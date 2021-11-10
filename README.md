@@ -7,7 +7,10 @@ Status](https://ci.appveyor.com/api/projects/status/github/jhudsl/ariExtra?branc
 
 # mario Package:
 
-The goal of `mario` is to create automatically create videos from Google slides.
+The goal of `mario` is to create automatically create videos from a Google slides.
+Whatever is written in the speaker notes section of the Google slides will be read in the video.
+
+If you update the slides, all you need to do is re-run `mario` to update the video.
 
 ## Installation
 
