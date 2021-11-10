@@ -5,48 +5,44 @@ status](https://travis-ci.com/jhudsl/ariExtra.svg?branch=master)](https://travis
 Status](https://ci.appveyor.com/api/projects/status/github/jhudsl/ariExtra?branch=master&svg=true)](https://ci.appveyor.com/project/jhudsl/ariExtra)
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ariExtra Package:
+# mario Package:
 
-The goal of `ariExtra` is to provide leverages the `ari`’ package and
-other tools to create automated courses from slides and a script.
+The goal of `mario` is to create automatically create videos from Google slides.
 
 ## Installation
 
-You can install `ariExtra` from GitHub with:
+You can install `mario` from GitHub with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("jhudsl/ariExtra")
+remotes::install_github("jhudsl/mario")
 ```
 
 ## Example
 
-``` r
-library(ariExtra)
-id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
-res = gs_to_ari(id, verbose = FALSE, voice = "Joanna", service = "amazon", open = FALSE) 
-```
+Before you can run `mario`, you will need two things:
+1) An API Key and
+2) Your Google slide ID that you'd like to translate into a video.
+
+### Get the API Key
+
+You will need access to the mario RSConnect and you'll need to obtain an API token.
+Click on your profile in the upper right corner > `API Keys` > `+ New API Key` and copy that API key token.
+
+### Get your Google Slide ID
+
+If you have a google slide set, you can obtain the google slide set ID from the URL:
+`https://docs.google.com/presentation/d/**presentationId**/edit`
+
+## Running Mario
 
 ``` r
-head(readLines(res$output_file), 20)
-#>  [1] "---"                                                                                                                                               
-#>  [2] "output:"                                                                                                                                           
-#>  [3] "  ariExtra::ari_document:"                                                                                                                         
-#>  [4] "    voice: Joanna"                                                                                                                                 
-#>  [5] "    service: amazon"                                                                                                                               
-#>  [6] "    verbose: no"                                                                                                                                   
-#>  [7] "---"                                                                                                                                               
-#>  [8] ""                                                                                                                                                  
-#>  [9] ""                                                                                                                                                  
-#> [10] "----------"                                                                                                                                        
-#> [11] ""                                                                                                                                                  
-#> [12] "<!--Lean pub created a mook platform.  We want to discuss some options for creating courses with Lean pub at Johns Hopkins.-->"                    
-#> [13] "![](/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpsE0Sv2/filecef632678c61.png)"                                                     
-#> [14] ""                                                                                                                                                  
-#> [15] ""                                                                                                                                                  
-#> [16] "----------"                                                                                                                                        
-#> [17] ""                                                                                                                                                  
-#> [18] "<!--Here is an example of the way Lean pub turns text into an output course.  The left hand side is written in a markdown format called Markua.-->"
-#> [19] "![](/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpsE0Sv2/filecef62c314e21.png)"                                                     
-#> [20] ""
+# Google slide ID
+id <- "presentation-Id"
+
+res <- mario::mario(id,
+  voice = "en-US-Wavenet-F",
+  api_key = "your-api-key")
+
+mario::mario_write_video(res, api_url = "https://rsconnect.biostat.jhsph.edu/mario/")
 ```
