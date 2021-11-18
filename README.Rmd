@@ -86,6 +86,7 @@ mario::mario_write_video(
   file = file.path())
 ```
 
+Mario will print a file path to the newly rendered video in the console.
 If you'd like to see a list of all the voice options:
 
 ```{r}
