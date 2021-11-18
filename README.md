@@ -5,48 +5,81 @@ status](https://travis-ci.com/jhudsl/ariExtra.svg?branch=master)](https://travis
 Status](https://ci.appveyor.com/api/projects/status/github/jhudsl/ariExtra?branch=master&svg=true)](https://ci.appveyor.com/project/jhudsl/ariExtra)
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ariExtra Package:
+# mario Package:
 
-The goal of `ariExtra` is to provide leverages the `ari`’ package and
-other tools to create automated courses from slides and a script.
+The goal of `mario` is to create automatically create videos from a Google slides.
+Whatever is written in the speaker notes section of the Google slides will be read in the video.
+
+If you update the slides, all you need to do is re-run `mario` to update the video.
 
 ## Installation
 
-You can install `ariExtra` from GitHub with:
+You can install `mario` from GitHub with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("jhudsl/ariExtra")
+remotes::install_github("jhudsl/mario")
 ```
 
 ## Example
 
-``` r
-library(ariExtra)
-id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
-res = gs_to_ari(id, verbose = FALSE, voice = "Joanna", service = "amazon", open = FALSE) 
+Before you can run `mario`, you will need two things:
+1) An API Key and
+2) Your Google slide ID that you'd like to translate into a video.
+
+### Get and set the API Key
+
+You will need access to the mario RSConnect and you'll need to obtain an API token.
+Click on your profile in the upper right corner > `API Keys` > `+ New API Key` and copy that API key token.
+
+In your local RStudio copy your API key in a command like this and run it:
+```
+Sys.setenv(CONNECT_API_KEY = "your-api-key")
+```
+Now the API Key is stored in `~/.Renviron` as a hidden file.
+
+You should only need to do this once per your RStudio environment.
+For now, the Mario API Key is stored in `~/.Renviron` as a hidden file.
+It is called `CONNECT_API_KEY`. You can call it something else, but this is the name that the api key functions below use by default, e.g.:
+
+`mario_auth(api_key = Sys.getenv("CONNECT_API_KEY"))`
+
+
+Now to test if your API key has been set up correctly, run this:
+```
+if (mario_have_api_key()) {
+  mario_api_key()
+}
+```
+If it is set up correctly, if should repeat back to you your API key.
+
+### Get your Google Slide ID
+
+If you have a google slide set, you can obtain the google slide set ID from the URL:
+`https://docs.google.com/presentation/d/**presentationId**/edit`
+
+Your [Google slides permissions](https://artofpresentations.com/give-permissions-on-google-slides/) must be set to `Anyone with link can view`
+For testing purposes, we've included a set of [test slides](https://docs.google.com/presentation/d/1sFsRXfK7LKxFm-ydib5dxyQU9fYujb95katPRu0WVZk/edit#slide=id.p) you can use to practice.
+
+## Running Mario
+
+```{r}
+# Google slide ID
+id <- "1sFsRXfK7LKxFm-ydib5dxyQU9fYujb95katPRu0WVZk"
+
+# Run mario!
+res <- mario::mario(id,
+  voice = "en-US-Wavenet-F")
+
+# Write the video
+mario::mario_write_video(
+  res
+  file = file.path())
 ```
 
-``` r
-head(readLines(res$output_file), 20)
-#>  [1] "---"                                                                                                                                               
-#>  [2] "output:"                                                                                                                                           
-#>  [3] "  ariExtra::ari_document:"                                                                                                                         
-#>  [4] "    voice: Joanna"                                                                                                                                 
-#>  [5] "    service: amazon"                                                                                                                               
-#>  [6] "    verbose: no"                                                                                                                                   
-#>  [7] "---"                                                                                                                                               
-#>  [8] ""                                                                                                                                                  
-#>  [9] ""                                                                                                                                                  
-#> [10] "----------"                                                                                                                                        
-#> [11] ""                                                                                                                                                  
-#> [12] "<!--Lean pub created a mook platform.  We want to discuss some options for creating courses with Lean pub at Johns Hopkins.-->"                    
-#> [13] "![](/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpsE0Sv2/filecef632678c61.png)"                                                     
-#> [14] ""                                                                                                                                                  
-#> [15] ""                                                                                                                                                  
-#> [16] "----------"                                                                                                                                        
-#> [17] ""                                                                                                                                                  
-#> [18] "<!--Here is an example of the way Lean pub turns text into an output course.  The left hand side is written in a markdown format called Markua.-->"
-#> [19] "![](/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpsE0Sv2/filecef62c314e21.png)"                                                     
-#> [20] ""
+If you'd like to see a list of all the voice options:
+
+```{r}
+voice_options <- mario_voices()
+head(voice_options)
 ```
