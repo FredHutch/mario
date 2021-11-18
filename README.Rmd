@@ -38,7 +38,7 @@ Before you can run `mario`, you will need two things:
 
 ### Get and set the API Key
 
-You will need access to the mario RSConnect and you'll need to obtain an API token.
+You will need access to the mario RSConnect through your institution. For example, JHU users will login at https://rsconnect.biostat.jhsph.edu/connect/. Once there, you'll need to obtain an API token.
 Click on your profile in the upper right corner > `API Keys` > `+ New API Key` and copy that API key token.
 
 In your local RStudio copy your API key in a command like this and run it:
