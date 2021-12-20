@@ -29,7 +29,7 @@ res <- mario::mario(id,
 # Write the video
 mario::mario_write_video(
   res,
-  file = file.path())"
+  file = file.path())
 ```
 
 ```{r}
