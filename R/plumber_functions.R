@@ -291,13 +291,13 @@ mario_translate <- function(file,
 #' @return A list/`data.frame` of output
 #' @export
 #'
-mario_content <- function(response) {
+mario_content <- function(response, output_file = NULL) {
   out <- jsonlite::fromJSON(
     httr::content(response, as = "text"),
     flatten = TRUE
   )
   if ("video" %in% names(out)) {
-    out$video <- mario_write_video(response)
+    out$video <- mario_write_video(response, output_file = output_file)
   }
   if ("return_images" %in% names(out)) {
     if (out$return_images) {
@@ -316,13 +316,34 @@ mario_content <- function(response) {
 
 #' @rdname mario_content
 #' @export
-mario_write_video <- function(response) {
+mario_write_video <- function(response, output_file = NULL) {
   httr::stop_for_status(response)
   bin_data <- httr::content(response)
+  
   bin_data <- bin_data$video[[1]]
   bin_data <- base64enc::base64decode(bin_data)
-  output <- tempfile(fileext = ".mp4")
-  writeBin(bin_data, output)
+  
+  if (is.null(output_file)) {
+    # If not specified, then just call it a temporary name
+    output_file <- file.path(".", tempfile(fileext = ".mp4"))
+  } else {
+    # Make it a file path
+    output_file <- file.path(output_file)
+    
+    # Add mp4 extension if it is not there
+    if (!grepl(output_file, ".mp4")) {
+     output_file <- paste0(output_file, ".mp4")
+    }
+    
+    # Get output directory
+    output_dir <- dirname(output_file)
+    
+    # Create output directory if it does not exist
+    if (!dir.exists(output_dir)) {
+      dir.create(output_dir)
+    }
+  }
+  writeBin(bin_data, output_file)
   output
 }
 
@@ -385,8 +406,8 @@ mario_subtitles <- function(response) {
 #' @rdname mario_content
 #' @param open should the video be opened on the local machine?
 #' @export
-open_video <- function(response, open = TRUE) {
-  output <- mario_write_video(response)
+open_video <- function(response, open = TRUE, output_file = NULL) {
+  output <- mario_write_video(response, output_file = output_file)
   if (open) {
     system2("open", output)
   }

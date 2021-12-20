@@ -8,15 +8,15 @@
 \alias{open_video}
 \title{Extract content from Mario output}
 \usage{
-mario_content(response)
+mario_content(response, output_file = NULL)
 
-mario_write_video(response)
+mario_write_video(response, output_file = NULL)
 
 mario_process_images(response)
 
 mario_subtitles(response)
 
-open_video(response, open = TRUE)
+open_video(response, open = TRUE, output_file = NULL)
 }
 \arguments{
 \item{response}{A \code{response} object, usually an output from

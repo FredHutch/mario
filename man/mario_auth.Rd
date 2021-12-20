@@ -25,8 +25,8 @@ A \code{header} output
 Authorization Header for mario
 }
 \examples{
-out = mario_auth()
+out <- mario_auth()
 if (mario_have_api_key()) {
-mario_api_key()
+  mario_api_key()
 }
 }
