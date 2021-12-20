@@ -22,6 +22,8 @@ open_video(response, open = TRUE, output_file = NULL)
 \item{response}{A \code{response} object, usually an output from
 \code{mario} or \code{mario_translate}}
 
+\item{output_file}{A file path to where the output video should be saved.}
+
 \item{open}{should the video be opened on the local machine?}
 }
 \value{

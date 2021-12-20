@@ -287,7 +287,8 @@ mario_translate <- function(file,
 #'
 #' @param response A `response` object, usually an output from
 #' `mario` or `mario_translate`
-#'
+#' @param output_file A file path to where the output video should be saved.
+#' 
 #' @return A list/`data.frame` of output
 #' @export
 #'
@@ -404,6 +405,7 @@ mario_subtitles <- function(response) {
 }
 
 #' @rdname mario_content
+#' @param output_file A file path to where the output video should be saved.
 #' @param open should the video be opened on the local machine?
 #' @export
 open_video <- function(response, open = TRUE, output_file = NULL) {
