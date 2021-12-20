@@ -70,19 +70,14 @@ jobs:
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
-      - name: Check vignette
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
-        run: |
-          Rscript -e "rmarkdown::render('making-videos.Rmd', clean = TRUE,
-            params = list(api_key=$API_KEY))"
-
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
+          API_KEY: ${{ secrets.API_KEY }}
         run: |
           options(crayon.enabled = TRUE)
           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", "--no-build-vignettes"), error_on = "warning", check_dir = "check")
+          rmarkdown::render('making-videos.Rmd', clean = TRUE, params = list(api_key=$API_KEY))
         shell: Rscript {0}
 
       - name: Upload check results
