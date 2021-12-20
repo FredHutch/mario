@@ -14,14 +14,32 @@ knitr::opts_chunk$set(
 )
 ```
 
+### Usage:
+```
+Rscript -e "rmarkdown::render('making-vidoes.Rmd',
+                              clean = TRUE,
+                              params = list(api_key=${API_KEY}))"
+```
+
+Load the library
 ```{r setup}
 library(mario)
 ```
 
+## Set up the API key
+
+```{r}
+Sys.setenv(CONNECT_API_KEY = params$api_key)
+```
+
+## Declare slide ID
 ```{r}
 # Google slide ID
 id <- "1sFsRXfK7LKxFm-ydib5dxyQU9fYujb95katPRu0WVZk"
+```
 
+## Run the conversion!
+```{r}
 # Run mario!
 res <- mario::mario(id,
   voice = "en-US-Wavenet-F")
@@ -31,6 +49,8 @@ mario::mario_write_video(
   res,
   output_file = "new_video")
 ```
+
+### Session Info
 
 ```{r}
 sessionInfo()
