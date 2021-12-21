@@ -2,6 +2,7 @@
 #'
 #' @param file An input file, such as a PPTX, Google Slide ID or URL,
 #' or a PDF (script needed)
+#' @param output_file A file path where the resulting mp4 file should be saved
 #' @param script A script of the words needed to be said over the slides.
 #' @param voice The voice used to synthesize the audio
 #' @param target The language code (2-character) to translate to.
