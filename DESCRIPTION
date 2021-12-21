@@ -29,7 +29,8 @@ Suggests:
     rmarkdown,
     ariExtra,
     googledrive,
-    markdown
+    markdown,
+    pdflatex
 VignetteBuilder: knitr
 Imports:
     httr,
