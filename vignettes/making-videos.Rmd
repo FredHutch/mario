@@ -2,10 +2,6 @@
 title: "making-videos"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteEngine{knitr::knitr}
-  %\VignetteIndexEntry{Making videos with MARIO}
-  %\usepackage[UTF-8]{inputenc}
 ---
 
 ```{r, include = FALSE}
