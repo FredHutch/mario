@@ -1,7 +1,6 @@
 ---
 title: "making-videos"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
 ---
 
 ```{r, include = FALSE}
