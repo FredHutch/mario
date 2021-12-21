@@ -21,3 +21,4 @@ vignettes/.httr-oauth$
 ^R/deconstruct_image\.R$
 ^CRAN-RELEASE$
 ^inst/extdata/google_authorization\.json$
+^tester_video.mp4$
