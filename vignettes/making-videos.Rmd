@@ -22,8 +22,7 @@ Rscript -e "rmarkdown::render('making-videos.Rmd',
 ## Set up the API key
 
 ```{r}
-# Sys.setenv(CONNECT_API_KEY = params$api_key)
-
+Sys.setenv(CONNECT_API_KEY = params$api_key)
 ```
 
 ## Declare slide ID
