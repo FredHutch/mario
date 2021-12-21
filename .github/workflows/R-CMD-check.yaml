@@ -75,7 +75,6 @@ jobs:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
           API_KEY: ${{ secrets.API_KEY }}
         run: |
-          options(crayon.enabled = TRUE)
           rcmdcheck::rcmdcheck(args = c("--ignore-vignettes"), error_on = "warning", check_dir = "check")
           rmarkdown::render('making-videos.Rmd', 'html_document', clean = TRUE, params = list(api_key=$API_KEY))
         shell: Rscript {0}
