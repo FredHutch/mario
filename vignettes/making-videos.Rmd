@@ -1,10 +1,12 @@
 ---
 title: "making-videos"
+date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{making-videos}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
+  %\usepackage[UTF-8]{inputenc}
 ---
 
 ```{r, include = FALSE}
@@ -16,20 +18,17 @@ knitr::opts_chunk$set(
 
 ### Usage:
 ```
-Rscript -e "rmarkdown::render('making-vidoes.Rmd',
+Rscript -e "rmarkdown::render('making-videos.Rmd',
+                              'html_document',
                               clean = TRUE,
                               params = list(api_key=${API_KEY}))"
-```
-
-Load the library
-```{r setup}
-library(mario)
 ```
 
 ## Set up the API key
 
 ```{r}
-Sys.setenv(CONNECT_API_KEY = params$api_key)
+# Sys.setenv(CONNECT_API_KEY = params$api_key)
+
 ```
 
 ## Declare slide ID
@@ -41,13 +40,9 @@ id <- "1sFsRXfK7LKxFm-ydib5dxyQU9fYujb95katPRu0WVZk"
 ## Run the conversion!
 ```{r}
 # Run mario!
-res <- mario::mario(id,
-  voice = "en-US-Wavenet-F")
-
-# Write the video
-mario::mario_write_video(
-  res,
-  output_file = "new_video")
+mario::mario(id,
+  voice = "en-US-Wavenet-F",
+  output_file = "tester_video.mp4")
 ```
 
 ### Session Info

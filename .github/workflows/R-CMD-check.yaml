@@ -77,7 +77,7 @@ jobs:
         run: |
           options(crayon.enabled = TRUE)
           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", "--no-build-vignettes"), build_args = "--no-build-vignettes", error_on = "warning", check_dir = "check")
-          rmarkdown::render('making-videos.Rmd', clean = TRUE, params = list(api_key=$API_KEY))
+          rmarkdown::render('making-videos.Rmd', 'html_document', clean = TRUE, params = list(api_key=$API_KEY))
         shell: Rscript {0}
 
       - name: Upload check results
