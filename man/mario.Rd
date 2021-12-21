@@ -32,6 +32,8 @@ mario_translate(
 \item{file}{An input file, such as a PPTX, Google Slide ID or URL,
 or a PDF (script needed)}
 
+\item{output_file}{A file path where the resulting mp4 file should be saved}
+
 \item{script}{A script of the words needed to be said over the slides.}
 
 \item{api_url}{URL for the Plumber API}

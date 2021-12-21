@@ -28,7 +28,8 @@ Suggests:
     knitr,
     rmarkdown,
     ariExtra,
-    googledrive
+    googledrive,
+    markdown
 VignetteBuilder: knitr
 Imports:
     httr,

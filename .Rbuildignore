@@ -22,4 +22,4 @@ vignettes/.httr-oauth$
 ^CRAN-RELEASE$
 ^inst/extdata/google_authorization\.json$
 ^tester_video.mp4$
-^.github/$
+^.github$
