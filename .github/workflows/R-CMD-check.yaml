@@ -75,7 +75,7 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
         run: |
           rcmdcheck::rcmdcheck(args = c("--ignore-vignettes", "--no-manual"), error_on = "warning")
-          rmarkdown::render('making-videos.Rmd', clean = TRUE, params = list(api_key=$API_KEY))
+          rmarkdown::render('making-videos.Rmd', clean = TRUE, params = list(api_key=${{API_KEY}}))
         shell: Rscript {0}
 
       - name: Upload check results
