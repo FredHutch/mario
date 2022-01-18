@@ -74,9 +74,8 @@ jobs:
         env:
           API_KEY: ${{ secrets.API_KEY }}
         run: |
-          rcmdcheck::rcmdcheck(args = c("--ignore-vignettes", "--no-manual"), error_on = "warning")
-          rmarkdown::render('vignettes/making-videos.Rmd', clean = TRUE, params = list(api_key=API_KEY))
-        shell: Rscript {0}
+          Rscript -e "rcmdcheck::rcmdcheck(args = c('--ignore-vignettes', '--no-manual'), error_on = 'warning');
+          rmarkdown::render('vignettes/making-videos.Rmd', clean = TRUE, params = list(api_key=$API_KEY))"
 
       - name: Upload check results
         if: failure()
