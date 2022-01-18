@@ -1,6 +1,8 @@
 ---
 title: "making-videos"
 date: "`r Sys.Date()`"
+params:
+  api_key: null
 ---
 
 ```{r, include = FALSE}
@@ -15,7 +17,7 @@ knitr::opts_chunk$set(
 Rscript -e "rmarkdown::render('making-videos.Rmd',
                               'html_document',
                               clean = TRUE,
-                              params = list(api_key=${API_KEY}))"
+                              params = list(api_key=API_KEY))"
 ```
 
 ## Set up the API key
