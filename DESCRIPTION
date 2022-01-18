@@ -21,7 +21,7 @@ LazyData: true
 ByteCompile: true
 URL: https://github.com/jhudsl/mario
 BugReports: https://github.com/jhudsl/mario/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
 Suggests:
     testthat,
