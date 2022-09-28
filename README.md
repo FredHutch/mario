@@ -83,3 +83,23 @@ If you'd like to see a list of all the voice options:
 voice_options <- mario_voices()
 head(voice_options)
 ```
+
+## Getting Mario subtitles for YouTube
+
+```{r}
+# Extract the subtitles
+subtitles <- mario::mario_subtitles(res)
+
+# Write the subtitles to file
+readr::write_lines(subtitles, "out.txt")
+```
+
+On YouTube:
+
+- Navigate to [https://studio.youtube.com](https://studio.youtube.com)
+- Go to "Subtitles" on the lefthand menu
+- Click on the video to which you want to add subtitles
+- Click the "ADD" link under "Subtitles" in the table
+- Select Upload File and select "With timing"
+- Upload the "out.txt" file created above
+- Once checked, click "PUBLISH"
