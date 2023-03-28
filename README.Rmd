@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# mario Package:
+# mario
 
 The goal of `mario` is to create automatically create videos from a Google slides.
 Whatever is written in the speaker notes section of the Google slides will be read in the video.
