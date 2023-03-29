@@ -55,7 +55,9 @@ It is called `CONNECT_API_KEY`. You can call it something else, but this is the 
 
 
 Now to test if your API key has been set up correctly, run this:
-```
+```{r, eval = FALSE}
+library(mario)
+
 if (mario_have_api_key()) {
   mario_api_key()
 }
@@ -64,15 +66,15 @@ If it is set up correctly, if should repeat back to you your API key.
 
 ### Get your Google Slide ID
 
-If you have a google slide set, you can obtain the google slide set ID from the URL:
+If you have a Google Slides set, you can obtain the Google Slides set ID from the URL:
 `https://docs.google.com/presentation/d/**presentationId**/edit`
 
-Your [Google slides permissions](https://artofpresentations.com/give-permissions-on-google-slides/) must be set to `Anyone with the link`
+Your [Google Slides permissions](https://artofpresentations.com/give-permissions-on-google-slides/) must be set to `Anyone with the link`
 For testing purposes, we've included a set of [test slides](https://docs.google.com/presentation/d/1sFsRXfK7LKxFm-ydib5dxyQU9fYujb95katPRu0WVZk/edit#slide=id.p) you can use to practice.
 
 ## Running Mario
 
-```{r}
+```{r, eval = FALSE}
 # Google slide ID
 id <- "1sFsRXfK7LKxFm-ydib5dxyQU9fYujb95katPRu0WVZk"
 
@@ -82,14 +84,13 @@ res <- mario::mario(id,
 
 # Write the video
 mario::mario_write_video(
-  res
-  file = file.path())
+  res)
 ```
 
 Mario will print a file path to the newly rendered video in the console.
 If you'd like to see a list of all the voice options:
 
-```{r}
+```{r, eval = FALSE}
 voice_options <- mario_voices()
 head(voice_options)
 ```
