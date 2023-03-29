@@ -25,8 +25,10 @@ remotes::install_github("jhudsl/mario")
 
 ## Example
 
-Before you can run `mario`, you will need two things: 1) An API Key and
-2) Your Google slide ID that you’d like to translate into a video.
+Before you can run `mario`, you will need two things:
+
+1)  An API Key
+2)  Your Google slide ID that you’d like to translate into a video
 
 ### Get and set the API Key
 
@@ -36,35 +38,39 @@ For example, JHU users will login at
 to obtain an API token. Click on your profile in the upper right corner
 \> `API Keys` \> `+ New API Key` and copy that API key token.
 
-In your local RStudio copy your API key in a command like this and run
-it:
+In your local RStudio copy your API key in a command like this and run:
 
-    Sys.setenv(CONNECT_API_KEY = "your-api-key")
+``` r
+Sys.setenv(CONNECT_API_KEY = "your-api-key")
+```
 
-Now the API Key is stored in `~/.Renviron` as a hidden file.
+You should only need to do this once per your RStudio environment. Your
+API key is called `CONNECT_API_KEY`. You can call it something else, but
+this is the name that the api key functions below use by default, e.g.:
 
-You should only need to do this once per your RStudio environment. For
-now, the Mario API Key is stored in `~/.Renviron` as a hidden file. It
-is called `CONNECT_API_KEY`. You can call it something else, but this is
-the name that the api key functions below use by default, e.g.:
-
-`mario_auth(api_key = Sys.getenv("CONNECT_API_KEY"))`
+``` r
+mario_auth(api_key = Sys.getenv("CONNECT_API_KEY"))
+```
 
 Now to test if your API key has been set up correctly, run this:
 
-    if (mario_have_api_key()) {
-      mario_api_key()
-    }
+``` r
+library(mario)
 
-If it is set up correctly, if should repeat back to you your API key.
+if (mario_have_api_key()) {
+  mario_api_key()
+}
+```
+
+If set up correctly, it should repeat back to you your API key.
 
 ### Get your Google Slide ID
 
-If you have a google slide set, you can obtain the google slide set ID
+If you have a Google Slides set, you can obtain the Google Slides set ID
 from the URL:
 `https://docs.google.com/presentation/d/**presentationId**/edit`
 
-Your [Google slides
+Your [Google Slides
 permissions](https://artofpresentations.com/give-permissions-on-google-slides/)
 must be set to `Anyone with the link` For testing purposes, we’ve
 included a set of [test
@@ -83,8 +89,7 @@ res <- mario::mario(id,
 
 # Write the video
 mario::mario_write_video(
-  res,
-  file = file.path())
+  res)
 ```
 
 Mario will print a file path to the newly rendered video in the console.
