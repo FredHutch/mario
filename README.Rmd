@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# mario
+# mario Package:
 
 The goal of `mario` is to create automatically create videos from a Google slides.
 Whatever is written in the speaker notes section of the Google slides will be read in the video.
@@ -67,7 +67,7 @@ If it is set up correctly, if should repeat back to you your API key.
 If you have a google slide set, you can obtain the google slide set ID from the URL:
 `https://docs.google.com/presentation/d/**presentationId**/edit`
 
-Your [Google slides permissions](https://artofpresentations.com/give-permissions-on-google-slides/) must be set to `Anyone with link can view`
+Your [Google slides permissions](https://artofpresentations.com/give-permissions-on-google-slides/) must be set to `Anyone with the link`
 For testing purposes, we've included a set of [test slides](https://docs.google.com/presentation/d/1sFsRXfK7LKxFm-ydib5dxyQU9fYujb95katPRu0WVZk/edit#slide=id.p) you can use to practice.
 
 ## Running Mario
