@@ -69,12 +69,9 @@ id <- "1sFsRXfK7LKxFm-ydib5dxyQU9fYujb95katPRu0WVZk"
 
 # Run mario!
 res <- mario::mario(id,
-  voice = "en-US-Wavenet-F")
-
-# Write the video
-mario::mario_write_video(
-  res
-  file = file.path())
+  voice = "en-US-Wavenet-F",
+  output_file = "mario_test_video"
+  )
 ```
 
 If you'd like to see a list of all the voice options:

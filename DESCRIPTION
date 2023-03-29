@@ -1,31 +1,37 @@
 Package: mario
 Type: Package
-Title: MARIO: Making Automated R Instructors Online
+Title: Making Automated R Instructors Online - MARIO
 Version: 0.1.0
 Authors@R: c(person(given = "John",
            family = "Muschelli",
            email = "muschellij2@gmail.com",
-           role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0001-6469-1750")))
-Description: Leverages the 'ari' package and other tools to create automated 
-    courses using the 'mario' plumber 
+           role = c("aut"),
+           comment = c(ORCID = "0000-0001-6469-1750")),
+           person(given = "Candace",
+           family = "Savonen",
+           email = "cansav09@gmail.com",
+           role = c("cre"),
+           comment = c(ORCID = "0000-0001-6331-7070")))
+Description: Leverages the 'ari' package and other tools to create automated
+    courses using the 'mario' plumber
     <https://rsconnect.biostat.jhsph.edu/mario> 'API'.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
-URL: https://github.com/muschellij2/mario
-BugReports: https://github.com/muschellij2/mario/issues
-RoxygenNote: 7.1.1
+URL: https://github.com/jhudsl/mario
+BugReports: https://github.com/jhudsl/mario/issues
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
-Suggests: 
+Suggests:
     testthat,
     knitr,
     rmarkdown,
     ariExtra,
-    googledrive
+    googledrive,
+    markdown
 VignetteBuilder: knitr
-Imports: 
+Imports:
     httr,
     jsonlite,
     base64enc,

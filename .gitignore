@@ -9,3 +9,4 @@ inst/doc
 tests/testthat/googlesheets_token.rds
 README_cache/
 inst/extdata/google_authorization.json
+.DS_Store
