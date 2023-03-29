@@ -42,18 +42,16 @@ Before you can run `mario`, you will need two things:
 You will need access to the mario RSConnect through your institution. For example, JHU users will login at https://rsconnect.biostat.jhsph.edu/connect/. Once there, you'll need to obtain an API token.
 Click on your profile in the upper right corner > `API Keys` > `+ New API Key` and copy that API key token.
 
-In your local RStudio copy your API key in a command like this and run:
+In your local RStudio, copy your API key in a command like this and run:
 
 ```{r, eval = FALSE}
 Sys.setenv(CONNECT_API_KEY = "your-api-key")
 ```
-You should only need to do this once per your RStudio environment. Your API key is called `CONNECT_API_KEY`. You can call it something else, but this is the name that the api key functions below use by default, e.g.:
+You should only need to do this once per your RStudio environment. Your API key is called `CONNECT_API_KEY`. You can call it something else, but this is the name that the API key functions below use by default, e.g.:
 
 ```{r, eval = FALSE}
 mario_auth(api_key = Sys.getenv("CONNECT_API_KEY"))
 ```
-
-
 
 Now to test if your API key has been set up correctly, run this:
 ```{r, eval = FALSE}
@@ -70,7 +68,7 @@ If set up correctly, it should repeat back to you your API key.
 If you have a Google Slides set, you can obtain the Google Slides set ID from the URL:
 `https://docs.google.com/presentation/d/**presentationId**/edit`
 
-Your [Google Slides permissions](https://artofpresentations.com/give-permissions-on-google-slides/) must be set to `Anyone with the link`
+Your [Google Slides permissions](https://www.youtube.com/watch?v=zHSfwaZIVbM) must be set to `Anyone with the link`.
 For testing purposes, we've included a set of [test slides](https://docs.google.com/presentation/d/1sFsRXfK7LKxFm-ydib5dxyQU9fYujb95katPRu0WVZk/edit#slide=id.p) you can use to practice.
 
 ## Running Mario
@@ -88,8 +86,7 @@ mario::mario_write_video(
   res)
 ```
 
-Mario will print a file path to the newly rendered video in the console.
-If you'd like to see a list of all the voice options:
+Mario will print a file path to the newly rendered video in the console. If you'd like to see a list of all the voice options:
 
 ```{r, eval = FALSE}
 voice_options <- mario_voices()
