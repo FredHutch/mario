@@ -25,7 +25,7 @@ If you update the slides, all you need to do is re-run `mario` to update the vid
 
 You can install `mario` from GitHub with:
 
-``` r
+```{r, eval = FALSE}
 # install.packages("remotes")
 remotes::install_github("jhudsl/mario")
 ```
