@@ -16,8 +16,8 @@ knitr::opts_chunk$set(
 
 # mario Package:
 
-The goal of `mario` is to create automatically create videos from a Google slides.
-Whatever is written in the speaker notes section of the Google slides will be read in the video.
+The goal of `mario` is to create automatically create videos from a Google Slides
+Whatever is written in the speaker notes section of the Google Slides will be read in the video.
 
 If you update the slides, all you need to do is re-run `mario` to update the video.
 
@@ -35,9 +35,9 @@ remotes::install_github("jhudsl/mario")
 Before you can run `mario`, you will need two things:
 
 1) An API Key
-2) Your Google slide ID that you'd like to translate into a video
+2) Google Slide ID that you'd like to translate into a video
 
-### Get and set the API Key
+### An API Key
 
 You will need access to the mario RSConnect through your institution. For example, JHU users will login at https://rsconnect.biostat.jhsph.edu/connect/. Once there, you'll need to obtain an API token.
 Click on your profile in the upper right corner > `API Keys` > `+ New API Key` and copy that API key token.
@@ -63,7 +63,7 @@ if (mario_have_api_key()) {
 ```
 If set up correctly, it should repeat back to you your API key.
 
-### Get your Google Slide ID
+### Google Slide ID that you'd like to translate into a video
 
 If you have a Google Slides set, you can obtain the Google Slides set ID from the URL:
 `https://docs.google.com/presentation/d/**presentationId**/edit`
@@ -74,7 +74,7 @@ For testing purposes, we've included a set of [test slides](https://docs.google.
 ## Running Mario
 
 ```{r, eval = FALSE}
-# Google slide ID
+# Google Slides ID
 id <- "1sFsRXfK7LKxFm-ydib5dxyQU9fYujb95katPRu0WVZk"
 
 # Run mario!
