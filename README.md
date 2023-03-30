@@ -7,7 +7,7 @@ Status](https://ci.appveyor.com/api/projects/status/github/jhudsl/mario?branch=m
 
 # mario Package:
 
-The goal of `mario` is to create automatically create videos from a
+The goal of `mario` is to automatically create videos from a set of
 Google slides. Whatever is written in the speaker notes section of the
 Google slides will be read in the video.
 
