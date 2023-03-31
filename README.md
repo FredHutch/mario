@@ -44,9 +44,10 @@ In your local RStudio, copy your API key in a command like this and run:
 Sys.setenv(CONNECT_API_KEY = "your-api-key")
 ```
 
-You should only need to do this once per your RStudio environment. Your
-API key is called `CONNECT_API_KEY`. You can call it something else, but
-this is the name that the API key functions below use by default, e.g.:
+It is stored in the environment for the current R session. You should
+only need to do this once per your RStudio environment. Your API key is
+called `CONNECT_API_KEY`. You can call it something else, but this is
+the name that the API key functions below use by default, e.g.:
 
 ``` r
 mario_auth(api_key = Sys.getenv("CONNECT_API_KEY"))
