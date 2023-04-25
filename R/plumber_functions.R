@@ -19,12 +19,14 @@ mario_auth = function(api_key = Sys.getenv("CONNECT_API_KEY")) {
   auth_hdr
 }
 
+# URL to RSConnect that contains mario API
 #' @rdname mario_auth
 #' @export
 mario_api_url = function() {
   "https://rsconnect.biostat.jhsph.edu/mario"
 }
 
+# Return API Key
 #' @rdname mario_auth
 #' @export
 mario_api_key = function(api_key = Sys.getenv("CONNECT_API_KEY")) {
@@ -33,6 +35,7 @@ mario_api_key = function(api_key = Sys.getenv("CONNECT_API_KEY")) {
   return(api_key)
 }
 
+# Check if user has API key
 #' @rdname mario_auth
 #' @export
 mario_have_api_key = function(api_key = Sys.getenv("CONNECT_API_KEY")) {
@@ -301,6 +304,7 @@ mario_content = function(response) {
   out
 }
 
+# Download and save a video file in the MP4 format from a HTTP response object
 #' @rdname mario_content
 #' @export
 mario_write_video = function(response) {
@@ -313,12 +317,14 @@ mario_write_video = function(response) {
   output
 }
 
+# Write binary data stored in an R object to a temporary file with a specified file extension
 bin_write = function(object, fileext) {
   tfile = tempfile(fileext = fileext)
   writeBin(object, tfile)
   return(tfile)
 }
 
+# Saves images
 #' @rdname mario_content
 #' @export
 mario_process_images = function(response) {
@@ -351,6 +357,7 @@ mario_process_images = function(response) {
   return(L)
 }
 
+# Return subtitles in character format
 #' @rdname mario_content
 #' @export
 mario_subtitles = function(response) {
@@ -361,6 +368,7 @@ mario_subtitles = function(response) {
   rawToChar(bin_data)
 }
 
+# Save video to MP4 and open the file immediately after it is saved
 #' @rdname mario_content
 #' @param open should the video be opened on the local machine?
 #' @export
