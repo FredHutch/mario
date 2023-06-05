@@ -1,6 +1,6 @@
 #' Authorization Header for mario
 #'
-#' @param api_key API key for RStudio Cnnect
+#' @param api_key API key for RStudio Connect
 #'
 #' @return A `header` output
 #' @export
