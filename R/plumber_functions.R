@@ -19,14 +19,14 @@ mario_auth = function(api_key = Sys.getenv("CONNECT_API_KEY")) {
   auth_hdr
 }
 
-# URL to RSConnect that contains mario API
+# URL to RSConnect that contains the mario API
 #' @rdname mario_auth
 #' @export
 mario_api_url = function() {
   "https://rsconnect.biostat.jhsph.edu/mario"
 }
 
-# Return API Key
+# Return RSConnect API Key
 #' @rdname mario_auth
 #' @export
 mario_api_key = function(api_key = Sys.getenv("CONNECT_API_KEY")) {
