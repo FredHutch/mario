@@ -1,8 +1,4 @@
 
-[![Travis build
-status](https://travis-ci.com/jhudsl/mario.svg?branch=master)](https://travis-ci.com/jhudsl/mario)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/jhudsl/mario?branch=master&svg=true)](https://ci.appveyor.com/project/jhudsl/mario)
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # mario Package:
@@ -20,7 +16,7 @@ You can install `mario` from GitHub with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("jhudsl/mario")
+remotes::install_github("FredHutch/mario")
 ```
 
 ## Example
@@ -32,38 +28,7 @@ Before you can run `mario`, you will need two things:
 
 ### API Key
 
-You will need access to the mario RSConnect through your institution.
-For example, JHU users will login at
-<https://rsconnect.biostat.jhsph.edu/connect/>. Once there, you’ll need
-to obtain an API token. Click on your profile in the upper right corner
-\> `API Keys` \> `+ New API Key` and copy that API key token.
-
-In your local RStudio, copy your API key in a command like this and run:
-
-``` r
-Sys.setenv(CONNECT_API_KEY = "your-api-key")
-```
-
-It is stored in the environment for the current R session. You should
-only need to do this once per your RStudio environment. Your API key is
-called `CONNECT_API_KEY`. You can call it something else, but this is
-the name that the API key functions below use by default, e.g.:
-
-``` r
-mario_auth(api_key = Sys.getenv("CONNECT_API_KEY"))
-```
-
-Now to test if your API key has been set up correctly, run this:
-
-``` r
-library(mario)
-
-if (mario_have_api_key()) {
-  mario_api_key()
-}
-```
-
-If set up correctly, it should repeat back to you your API key.
+TODO
 
 ### Google Slides ID
 
@@ -100,22 +65,3 @@ If you’d like to see a list of all the voice options:
 voice_options <- mario_voices()
 head(voice_options)
 ```
-
-## Getting Mario subtitles for YouTube
-
-``` r
-# Extract the subtitles
-subtitles <- mario::mario_subtitles(res)
-# Write the subtitles to file
-readr::write_lines(subtitles, "out.txt")
-```
-
-On YouTube:
-
-- Navigate to <https://studio.youtube.com>
-- Go to “Subtitles” on the left hand menu
-- Click on the video to which you want to add subtitles
-- Click the “ADD” link under “Subtitles” in the table
-- Select Upload File and select “With timing”
-- Upload the “out.txt” file created above
-- Once checked, click “PUBLISH”
