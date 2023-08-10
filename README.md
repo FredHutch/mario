@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# mario Package:
+# mario
 
 The goal of `mario` is to automatically create videos from a set of
 Google Slides. Whatever is written in the speaker notes section of the
