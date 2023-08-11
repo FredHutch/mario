@@ -48,7 +48,7 @@ RUN R CMD INSTALL .
 
 # make sure all packages are installed
 # because R does not fail when there's an error installing a package.
-RUN R -f check.R --args didactr rmarkdown plumber base64enc mime testthat covr knitr httr googledrive jsonlite remotes pdftools tidyr text2speech shinyWidgets aws.polly ari shinyjs blastula googlesheets4 gargle promises future ipc shinyFeedback mario
+RUN R -f check.R --args animation didactr rmarkdown plumber base64enc mime testthat covr knitr httr googledrive jsonlite remotes pdftools tidyr text2speech shinyWidgets aws.polly ari shinyjs blastula googlesheets4 gargle promises future ipc shinyFeedback mario
 
 
 
