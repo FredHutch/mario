@@ -19,7 +19,7 @@ RUN make altinstall
 
 RUN python3.9 -m ensurepip
 
-RUN python3.9 -m pip install TTS
+RUN python3.9 -m pip install TTS mecab-python3 unidic-lite
 
 RUN echo break cache0
 
