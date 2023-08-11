@@ -25,6 +25,8 @@ RUN echo break cache
 
 RUN R -e "install.packages(c('plumber', 'ariExtra', 'rmarkdown', 'animation', 'base64enc', 'pagedown', 'mime', 'testthat', 'covr', 'knitr', 'httr', 'googledrive', 'jsonlite', 'gargle', 'googlesheets4', 'remotes', 'pdftools', 'tidyr', 'text2speech', 'shinyWidgets', 'aws.polly', 'shinyjs', 'blastula', 'promises', 'future', 'ipc', 'shinyFeedback'), repos='https://cran.rstudio.com/')"
 
+ARG GITHUB_PAT
+
 # TODO change this when PR is merged and ari is updated in CRAN:
 RUN R -e 'remotes::install_github("jhudsl/text2speech", upgrade = "never")'
 RUN R -e 'remotes::install_github("jhudsl/didactr", upgrade = "never")'

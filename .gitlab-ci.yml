@@ -19,7 +19,7 @@ stages:
 build:
   stage: build
   script:
-    - docker build -e GITHUB_PAT=${GITHUB_PAT} -t sc-registry.fredhutch.org/mario:test .
+    - docker build --build-arg="GITHUB_PAT=${GITHUB_PAT}" -t sc-registry.fredhutch.org/mario:test .
     - docker push sc-registry.fredhutch.org/mario:test
 
 test:
