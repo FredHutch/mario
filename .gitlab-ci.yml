@@ -28,7 +28,7 @@ test:
     - name: sc-registry.fredhutch.org/mario:test
       alias: mario
   script:
-    - sleep 15 && curl -sI  http://mario:9876  |head -1|grep -q "200 OK"
+    - sleep 15 && curl -sI  http://mario:9876/__docs__/  |head -1|grep -q "200 OK"
 
 deploy:
   stage: deploy
