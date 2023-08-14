@@ -7,6 +7,7 @@
 #    https://www.rplumber.io/
 #
 
+# Packages
 library(plumber)
 library(ari)
 library(didactr)
@@ -278,10 +279,10 @@ run_ari = function(func_to_run, contents, ...) {
 #* @apiTitle Automatic Video Generation API
 
 #* Process Input into a Video
-#* @param target target language to translate to. If this is passed, then translation is done.
-#* @param service service to use for voice synthesis, including "amazon", "google", or "microsoft".  Currently only "google" supported
-#* @param voice The voice to use for synthesis, needs to be paired with service
-#* @param script file upload of script
+#* @param target Target language to translate to. If this is passed, then translation is done.
+#* @param service Service to use for voice synthesis ("coqui", "amazon", "google", or "microsoft"). Currently only "coqui" supported
+#* @param voice Voice to use for synthesis (needs to be paired with service)
+#* @param script File upload of script
 #* @param file ID of Google Slide deck, or file upload of PDF slides, PPTX file, or list of PNGs
 #* @post /to_ari
 function(req) {
@@ -300,9 +301,9 @@ function(req) {
 
 
 #* Google Slides to ari
-#* @param target target language to translate to. If this is passed, then translation is done.
-#* @param service service to use for voice synthesis, including "amazon", "google", or "microsoft".  Currently only "google" supported
-#* @param voice The voice to use for synthesis, needs to be paired with service
+#* @param target Target language to translate to. If this is passed, then translation is done.
+#* @param service Service to use for voice synthesis ("coqui", "amazon", "google", or "microsoft"). Currently only "coqui" supported
+#* @param voice Voice to use for synthesis (needs to be paired with service)
 #* @param file ID of Google Slide deck
 #* @post /gs_ari
 function(req) {
@@ -324,10 +325,10 @@ function(req) {
 }
 
 #* PowerPoint to ari
-#* @param target target language to translate to. If this is passed, then translation is done.
-#* @param service service to use for voice synthesis, including "amazon", "google", or "microsoft".  Currently only "google" supported
-#* @param voice The voice to use for synthesis, needs to be paired with service
-#* @param file file upload of PowerPoint file
+#* @param target Target language to translate to. If this is passed, then translation is done.
+#* @param service Service to use for voice synthesis ("coqui", "amazon", "google", or "microsoft"). Currently only "coqui" supported
+#* @param voice Voice to use for synthesis (needs to be paired with service)
+#* @param file File upload of PowerPoint file
 #* @post /pptx_ari
 function(req) {
 
@@ -345,10 +346,8 @@ function(req) {
 
 
 
-
-
 #* List Voices
-#* @param service service to use for voice synthesis, including "amazon", "google", or "microsoft".  Currently only "google" supported
+#* @param service Service to use for voice synthesis ("coqui", "amazon", "google", or "microsoft"). Currently only "coqui" supported
 #* @get /list_voices
 function(service = NULL) {
 
