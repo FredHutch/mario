@@ -275,7 +275,7 @@ run_ari = function(func_to_run, contents, ...) {
   L
 }
 
-#* @apiTitle Presentation Video Generation API
+#* @apiTitle Automatic Video Generation API
 
 #* Process Input into a Video
 #* @param target target language to translate to. If this is passed, then translation is done.
